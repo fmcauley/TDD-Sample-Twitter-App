@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Social
 @testable import SampleTweetAppl
 
 class SampleTweetApplTests: XCTestCase {
@@ -21,16 +22,15 @@ class SampleTweetApplTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testShouldCreateAViewControllerAbleToTweet(){
+        let sampleVC = ViewController()
+        let tweetVC = sampleVC.sendATweet()
+        XCTAssertEqual(tweetVC.serviceType, "com.apple.social.twitter", "service type is wrong\(tweetVC.serviceType)")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+    func testShouldSendAMessageIfNotAbleToSendATweet(){
+        let sampleVC = ViewController()
+        let response = sampleVC.failedToSendATweet()
+        XCTAssertEqual(response, "It is not possible to send a tweet at this time")
     }
-    
 }
